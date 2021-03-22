@@ -16,16 +16,17 @@ LABEL Maintainer="Gareth Howell <gareth.howell@gmail.com>"
 RUN echo "Initial Update." &&\
     apt-get update &&\
     echo "Installing git." &&\
-    apt-get install -f -y --no-install-recommends build-essential git cmake &&\
-    cd  /tmp/ &&\
+    apt-get install -f -y --no-install-recommends build-essential git cmake 
+
+RUN cd  /tmp/ &&\
 # install MultiMarkdown
     echo "Installing MultiMarkdown-6" &&\
     git clone https://github.com/fletcher/MultiMarkdown-6.git &&\
     cd MultiMarkdown-6 &&\
     make &&\
     cd build &&\
-    make install &&\
-    echo "Final cleanup." &&\
+    make install 
+RUN echo "Final cleanup." &&\
     apt-get clean -y &&\
     rm -rf /tmp/* /var/tmp/* &&\
     rm -rf /var/lib/apt/lists/* &&\
@@ -38,6 +39,10 @@ RUN echo "Initial Update." &&\
     rm -rf /usr/share/man &&\
     mkdir -p /usr/share/man &&\
     mkdir -p /usr/share/doc &&\
+# create the input and output directories
+    echo "creating input and output directories" &&\
+    mkdir -p /input &&\
+    mkdir -p /output &&\
     echo "All done."
 
 
